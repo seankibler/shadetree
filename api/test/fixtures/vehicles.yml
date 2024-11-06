@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  type: 
+  make_id: 1
+  model_id: 1
+  year: MyString
+  vin: <%= SecureRandom.uuid %>
+  miles: 1
+  color: MyString
+  customer_id: 1
+
+two:
+  name: MyString
+  type: 
+  make_id: 1
+  model_id: 1
+  year: MyString
+  vin: <%= SecureRandom.uuid %>
+  miles: 1
+  color: MyString
+  customer_id: 1
