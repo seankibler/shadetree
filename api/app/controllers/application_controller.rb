@@ -1,7 +1,30 @@
 class ApplicationController < ActionController::API
   after_action :record_hit
+  before_action :authenticate!
 
   private
+  
+  def authenticate!
+    if request.headers['Authorization'].blank?
+      render status: :unauthorized
+
+      return false
+    end
+
+    auth_token = request.headers['Authorization'].split(' ')[1]
+
+    if !permitted_tokens.include?(auth_token)
+      render status: :unauthorized
+
+      return false
+    end
+
+    true
+  end
+
+  def permitted_tokens
+    ENV['API_TOKENS'].split(',').map { |token| token.chomp }
+  end
 
   def prometheus_registry
     Prometheus::Client.registry
