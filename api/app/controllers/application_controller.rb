@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   
   def authenticate!
     if request.headers['Authorization'].blank?
-      render status: :unauthorized
+      render_unauthorized
 
       return false
     end
@@ -14,12 +14,16 @@ class ApplicationController < ActionController::API
     auth_token = request.headers['Authorization'].split(' ')[1]
 
     if !permitted_tokens.include?(auth_token)
-      render status: :unauthorized
+      render_unauthorized
 
       return false
     end
 
     true
+  end
+
+  def render_unauthorized
+    render json: { error: "unauthorized" }, status: :unauthorized
   end
 
   def permitted_tokens
